@@ -2,6 +2,14 @@
 
 Beginner-friendly frontend demo that consumes a JWT auth API and shows a simple auth gateway pattern.
 
+## API Source
+
+This frontend consumes the auth API hosted here:
+
+https://github.com/barrycumbie/micro-jwt-authn-api-demo
+
+> this is backend Node.js-Express.js code deployed on a GCP VM instance...stuff for later classes
+
 ## Learning Goal
 
 - Understand public vs protected page behavior.
