@@ -44,7 +44,7 @@
 
   // Calls login API and returns response JSON.
   async function login(password) {
-    const response = await fetch('http://136.116.192.154/api/authn/login', {
+    const response = await fetch('https://authn.barrycumbie.com/api/authn/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -82,7 +82,7 @@
       return;
     }
 
-    showMessage(message, 'Calling POST http://136.116.192.154/api/authn/login...', 'muted');
+    showMessage(message, 'Calling POST https://authn.barrycumbie.com/api/authn/login...', 'muted');
     output.textContent = '';
 
     try {

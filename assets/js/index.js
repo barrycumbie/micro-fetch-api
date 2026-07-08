@@ -69,11 +69,11 @@
     const message = document.getElementById('api-message');
     const output = document.getElementById('api-output');
 
-    message.textContent = 'Calling GET http://136.116.192.154/health...';
+    message.textContent = 'Calling GET https://authn.barrycumbie.com/health...';
     output.textContent = '';
 
     try {
-      const response = await fetch('http://136.116.192.154/health', {
+      const response = await fetch('https://authn.barrycumbie.com/health', {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + session.token

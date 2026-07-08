@@ -24,7 +24,7 @@ https://github.com/barrycumbie/micro-jwt-authn-api-demo
 - Page: `auth.html`
 - Action: Enter display name + password and click Login.
 - What happens:
-  - Calls `POST http://136.116.192.154/api/authn/login`
+  - Calls `POST https://authn.barrycumbie.com/api/authn/login`
   - Saves `{ username, token }` to `sessionStorage`
   - Redirects to `index.html`
 
@@ -35,7 +35,7 @@ https://github.com/barrycumbie/micro-jwt-authn-api-demo
   - Checks for valid session
   - If missing/invalid, redirects to `auth.html`
 - What to test:
-  - Click “Run GET health” to call `GET http://136.116.192.154/health` with bearer token
+  - Click “Run GET health” to call `GET https://authn.barrycumbie.com/health` with bearer token
   - Click Sign Out to clear session and return to `auth.html`
 
 ### Step 3: Open pages/profile.html (Protected Nested Page)
@@ -59,6 +59,10 @@ https://github.com/barrycumbie/micro-jwt-authn-api-demo
 
 ## Quick Start
 
-1. Make sure the API is reachable at `http://136.116.192.154`.
+1. Make sure the API is reachable at `https://authn.barrycumbie.com`.
 2. Open `auth.html` in a browser (or serve the repo with any static server).
 3. Follow Step 1, Step 2, and Step 3 above.
+
+## Deployment Note
+
+If this frontend is hosted on GitHub Pages (HTTPS), all API calls must also use HTTPS. Browsers block HTTP API calls from HTTPS pages.
