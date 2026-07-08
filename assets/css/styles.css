@@ -1,8 +1,28 @@
+body {
+  background: #f8f9fa;
+}
+
+.flow-banner {
+  background: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.simple-card {
+  border: 1px solid #dee2e6;
+}
+
 .result-box {
-  background: #111827;
-  color: #e5e7eb;
+  background: #212529;
+  color: #f8f9fa;
   border-radius: 0.375rem;
   padding: 1rem;
-  min-height: 10rem;
+  min-height: 8rem;
   overflow: auto;
+}
+
+.token-preview {
+  font-family: monospace;
 }

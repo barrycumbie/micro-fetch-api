@@ -1,55 +1,56 @@
 # Brain Bucket API Consumer
 
-A lightweight frontend app that demonstrates an **Auth Gateway UI** pattern while consuming a REST API.
+Beginner-friendly frontend demo that consumes a JWT auth API and shows a simple auth gateway pattern.
 
-## What the Auth Gateway UI is
+## Learning Goal
 
-The Auth Gateway keeps auth behavior consistent by using one shared script (`/assets/js/auth-gateway.js`) for:
+- Understand public vs protected page behavior.
+- Practice logging in and storing a token in `sessionStorage`.
+- See redirect rules when users are not authenticated.
+- Run one authenticated API request from the UI.
 
-- checking login state (`isAuthenticated`)
-- reading session user (`getSessionUser`)
-- protecting pages (`requireAuth`)
-- generating redirect targets (`getAuthUrl`, `getHomeUrl`)
-- clearing auth state (`clearSession`)
+## Demo Steps
 
-Session state is stored in `sessionStorage` under one key.
+### Step 1: Start On auth.html (Public)
 
-## How auth checks work
+- Page: `auth.html`
+- Action: Enter display name + password and click Login.
+- What happens:
+  - Calls `POST http://136.116.192.154/api/authn/login`
+  - Saves `{ username, token }` to `sessionStorage`
+  - Redirects to `index.html`
 
-- **Protected pages** (`/index.html`, `/pages/profile.html`) call `AuthGateway.requireAuth()` on load.
-- If no valid session exists, user is redirected to `auth.html`.
-- **Auth page** (`/auth.html`) checks `isAuthenticated()` on load and redirects to `index.html` if already signed in.
-- On successful login form submit, a session object is stored and the user is redirected to `index.html`.
+### Step 2: Land On index.html (Protected)
 
-## How to call the API
+- Page: `index.html`
+- What happens on load:
+  - Checks for valid session
+  - If missing/invalid, redirects to `auth.html`
+- What to test:
+  - Click “Run GET health” to call `GET http://136.116.192.154/health` with bearer token
+  - Click Sign Out to clear session and return to `auth.html`
 
-Shared API client lives in `/assets/js/api-client.js` and includes:
+### Step 3: Open pages/profile.html (Protected Nested Page)
 
-- `API_BASE_URL` constant
-- `requestJson(path, options)` helper
-- optional bearer token attachment (`Authorization` header)
-- clear handling for:
-  - `401` (`UNAUTHORIZED`)
-  - `403` (`FORBIDDEN`)
-  - network failures (`NETWORK_ERROR`)
+- Page: `pages/profile.html`
+- What happens on load:
+  - Checks for valid session
+  - If missing/invalid, redirects to `../auth.html`
+- Why this page exists:
+  - Proves the same auth guard behavior works from a nested folder route
 
-Example calls are wired on `index.html`:
+## Main Functionality (Simple Setup)
 
-- GET: `ApiClient.requestJson('/posts?_limit=3', { token })`
-- POST: `ApiClient.requestJson('/posts', { method: 'POST', token, body: {...} })`
+- One script per page:
+  - `assets/js/auth.js`
+  - `assets/js/index.js`
+  - `assets/js/profile.js`
+- Shared session key: `brainBucketSession`.
+- Auth guard behavior is consistent across protected pages.
+- Handles common API failure cases: invalid credentials, unauthorized/forbidden, and network errors.
 
-Unauthorized responses are handled via `ApiClient.handleUnauthorized(error)`, which clears session and redirects to `auth.html`.
+## Quick Start
 
-## Redirect behavior and paths
-
-Redirect URLs come from `AuthGateway.getAuthUrl()` and `AuthGateway.getHomeUrl()`. These are generated from the shared script location so redirects work from both root pages and nested pages like `/pages/profile.html`.
-
-## Folder structure
-
-- `/auth.html` (auth page)
-- `/index.html` (protected home page)
-- `/pages/profile.html` (second protected page)
-- `/assets/js/auth-gateway.js` (shared auth guard)
-- `/assets/js/api-client.js` (shared API layer)
-- `/assets/js/auth-page.js`, `/assets/js/index-page.js`, `/assets/js/profile-page.js`
-- `/assets/css/styles.css`
+1. Make sure the API is reachable at `http://136.116.192.154`.
+2. Open `auth.html` in a browser (or serve the repo with any static server).
+3. Follow Step 1, Step 2, and Step 3 above.
